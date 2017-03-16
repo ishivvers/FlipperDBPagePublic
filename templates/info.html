@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Supernova database - Filippenko group at University of California, Berkeley, Astronomy">
+    <meta name="author" content="UCB Filippenko Group">
+    <link rel="icon" href="static/img/favicon.ico">
+
+    <title>The SNDB</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/jumbotron.css" rel="stylesheet">
+    <link href="static/css/jquery.tocify.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-63931212-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">The UC Berkeley SNDB</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="search">Search</a></li>
+            <li><a href="results">Results</a></li>
+            <li class="active"><a href="info">More Info</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+   <form>
+    <div class="container">
+     <div class="row">
+	  <div class="col-md-8 col-md-offset-1">
+      <div class="row">
+        <div class="col-md-12">
+		<h1>The SNDB</h1><hr>
+		    <p>
+			Welcome to the UC Berkeley Filippenko Group's Supernova Database.
+			This website represents an effort to make available all of the
+			data collected by the Filippenko Group at UC Berkeley.  The bulk of these data were
+			collected at the 
+			<a href="https://www.ucolick.org/" target="_blank">Lick</a> or 
+			<a href="http://www.keckobservatory.org/" target="_blank">Keck</a>
+			observatories, and they represent the accumulated work 
+			of a great number of researchers and telescope staff over decades.
+			If you cannot find data published by the group, contact us and we'll 
+			figure out where it is.
+			 For a further explanation of the SNDB please refer to BSNIP I
+			  (<a href='http://adsabs.harvard.edu/abs/2012MNRAS.425.1789S' target="_blank">Silverman et al. 2012, <i>MNRAS</i>, <b>425</b>, 1789</a>).
+		    </p>
+		<p>Contact the webmaster: {{webmaster_email}}</p>
+            <h4> If you use data from the SNDB in a publication, please cite the original publication of the data and include an acknowledgement of the SNDB!</h4>
+		</div><!-- /col -->
+      </div><!-- /row -->
+      <div class="row">
+        <div class="col-md-12">
+			<hr><h1>How to Search the SNDB</h1><hr>
+			<p>
+				This website allows you to perform complex searches for data within the SNDB.
+				The <code>Objects</code> column searches against properties of the object itself,
+				while the <code>Spectra</code> and <code>Photometry</code> columns search against the properties of a each data file.
+				The checkboxes at the top of the page allow you to choose what type of data to search for.
+                                Note that the SNDB is not case-sensitive.
+			</p>
+			<h3>Pre-defined Search Options</h3>
+			<p>
+				Many fields allow you to either choose from a set of pre-defined options or to enter your own text. The given options
+				cover most of the data in the SNDB, but not all, so if you cannot find a file using the pre-defined options try
+				making your search more general!
+			</p>
+			<h3>Numerical Fields</h3>
+			<p>
+				All of the numerical entry fields (except for the coordinate fields) allow you to enter logical comparison
+				operators (<code><,></code>), or a comma-separated range, or a single value. For example:
+				<ul>
+					<li> <code> 0.05 </code>: matches only 0.05 exactly </li>
+					<li> <code> < 0.05 </code>: matches all values less than 0.05 </li>
+					<li> <code> > 0.05 </code>: matches all values greater than 0.05 </li>
+					<li> <code> 0.01, 0.05 </code>: matches all values between 0.01 and 0.05 </li>
+				</ul>
+			</p>
+			<h3>RegEx</h3>
+			<p>
+				If you select the <code>RegEx</code> box (where given) and enter a valid
+				<a href="https://dev.mysql.com/doc/refman/5.0/en/regexp.html" target="_blank">regular expression</a>
+				the SNDB will return all matches using the MySQL REGEXP operator.
+                                Several parameters have the <code>RegEx</code> box marked by default - in these cases,
+                                the SNDB field may contain more than one value, and using a regular expression match allows
+                                you to search for fields that contain the search string but are not exact matches to the search string.<br>
+				Some helpful <code>RegEx</code> examples:
+				<ul>
+					<li> <code>1998S</code>: matches 'sn1998s', 'SN1998S', 'SN 1998S', et cetera </li>
+					<li> <code>2000[AMN]</code>: matches 'SN 2000A', 'SN 2000M', 'SN 2000N', 'SN 2000ab', et cetera </li>
+					<li> <code>V</code>: matches 'V', 'B,V,R,I', et cetera </li>
+					<li> <code>(R|clear)</code>: matches 'B,V,R,I', 'clear', 'V,I,clear', et cetera </li>
+				</ul>
+			</p>
+			<h3>Range</h3>
+			<p>
+				If you select the <code>Range</code> box (where given), you must enter a range of values
+				separated by a comma.  For example, selecting <code>Range</code> by a Date entry box
+				and entering "2015-01-01, 2015-01-30" would match to all dates in between.
+			</p>
+			<h3>Coordinates</h3>
+			<p>
+				Coordinates can be entered in most reasonable formats, so long as Right Ascension is first
+				and Declination is second, and they are separated by a comma.  If a search box size is not given,
+				the SNDB will search for sources within one arcminute of the given coordinates.<br>
+				Some valid formats:
+				<ul>
+					<li>12:18:48.68, +14:24:43.5</li>
+					<li>12 18 48.68, +14 24 43.5</li>
+					<li>184.7, 14.4</li>
+				</ul>
+			</p>
+			<h3>Dates</h3>
+			<p>
+				Dates can be entered in most reasonable formats, so long as no commas are used except to
+				demarcate two different date strings when performing a <code>Range</code> search.<br>
+				Some valid formats:
+				<ul>
+					<li>2010-01-21</li>
+					<li>2010/01/21</li>
+					<li>01/21/2010</li>
+					<li>January 21 2010</li>
+					<li>Jan 21 2010</li>
+				</ul>
+			</p>
+			<h3>Days From Discovery/Peak</h3>
+			<p>
+				You can search for spectra in the DB that were taken at a certain
+				phase relative to the date of discovery and/or peak.  These are numerical
+				fields, so you can use the logical arguments described above.
+				Note that all SNe in our DB have a known discovery date, but only a small
+				subset have a known peak date - if you use the <code>Days From Peak</code>
+				constraint, only spectra of SNe with known peak dates will be returned.
+                                Time dilation is accounted for when calculating the phase relative to
+                                peak date.
+			</p>
+		</div><!-- /col -->
+      </div><!-- /row -->
+      <div class="row">
+        <div class="col-md-12">
+			<hr><h1>Examining Data</h1><hr>
+				<h3>Downloading Data</h3>
+				<p>
+					All data sets can be downloaded individually by clicking the <code>Now</code> button,
+					or in bulk by selecting the checkboxes and clicking the <code>Download Selected</code> button.
+					All data are available as ASCII files.
+				</p>
+				<h3>Plots</h3>
+				<p>
+					Plots of data can be generated by clicking the <code>Plot</code> button.  Each plot provides
+					tools to zoom and pan (see buttons in lower left of each plot).
+				</p>
+		</div><!-- /col -->
+      </div><!-- /row -->
+      <div class="row">
+        <div class="col-md-12">
+	      <hr><h1>Download Datasets (BSNIP, LOSS)</h1><hr>
+			<h4>LOSS Cosmology paper (<a href='http://adsabs.harvard.edu/abs/2013MNRAS.433.2240G' target="_blank">Ganeshalingam et al. 2013, <i>MNRAS</i>, <b>433</b>, 2240</a>)</h4>
+			<p>Here are the data from LOSS Cosmology paper:
+			<ul>
+			<li>Table 3: Salt2 Parameters and Distance Estimates <a href='static/LOSS/table3_full.txt' target="_blank">TXT</a>
+			<li>LOSS Natural System Photometry <a href='static/LOSS/loss.phot.natural.table.txt' target="_blank">TXT</a>
+			<li>LOSS Telescope System Transmission Curves <a href='static/LOSS/transmission_curves.tar' target="_blank">TAR</a>
+			<li>Figures from paper <a href='static/LOSS/loss_figures.tar' target="_blank">TAR</a>
+			</ul></p>
+			<br><br>
+
+
+			<h4>BSNIP I (<a href='http://adsabs.harvard.edu/abs/2012MNRAS.425.1789S' target="_blank">Silverman et al. 2012, <i>MNRAS</i>, <b>425</b>, 1789</a>)</h4>
+
+			<p>Download a <tt>tar</tt> file of all spectra <a href='static/BSNIPI/BSNIPI_spectra.tar.gz' target="_blank">here</a>.
+
+			<p>Here are the full tables from BSNIP I:
+			<ul>
+			<li>Table 1: SN Ia and Host Information <a href='static/BSNIPI/obj_info_table.pdf' target="_blank">PDF</a> <a href='static/BSNIPI/obj_info_table.txt' target="_blank">TXT</a>
+			<li>Table 2: SN Ia Spectral Information <a href='static/BSNIPI/spec_info_table.pdf' target="_blank">PDF</a> <a href='static/BSNIPI/spec_info_table.txt' target="_blank">TXT</a>
+			<li>Table 5: SNID v7.0 Spectral Templates <a href='static/BSNIPI/SNID_templates_table.pdf' target="_blank">PDF</a> <a href='static/BSNIPI/SNID_templates_table.txt' target="_blank">TXT</a>
+			<li>Table 7: SNID Classification Information <a href='static/BSNIPI/snid_info_table.pdf' target="_blank">PDF</a> <a href='static/BSNIPI/snid_info_table.txt' target="_blank">TXT</a>
+			</ul></p>
+
+			<p>Plots of all of the fully reduced spectra, as well as galaxy-subtracted spectra, presented in BSNIP I are <a href='static/BSNIPI/final_spec.pdf' target="_blank">here</a>. Spectral sequence plots for all objects in BSNIP I with more than 7 spectra are <a href='static/BSNIPI/final_multi_spec.pdf' target="_blank">here</a>. Plots of all objects for which (re-)classifications were made, compared to their best-matching SNID template, are <a href='static/BSNIPI/re_class.pdf' target="_blank">here</a>.</p>
+
+			<p>The SNID v7.0 Spectral Templates are <a href='static/BSNIPI/bsnip_v7_snid_templates.tar.gz' target="_blank">here</a>. To add the new templates to your version of SNID,
+			follow <a href='http://people.lam.fr/blondin.stephane/software/snid/faq.html#bsnip_v7' target="_blank">these</a> instructions.</p>
+			<br><br>
+
+
+			<h4>BSNIP II (<a href='http://adsabs.harvard.edu/abs/2012MNRAS.425.1819S' target="_blank">Silverman et al. 2012, <i>MNRAS</i>, <b>425</b>, 1819</a>)</h4>
+			<p>Here are the full tables from BSNIP II:
+			<ul>
+			<li>Table 3: Velocity Gradients and Interpolated/Extrapolated Velocities <a href='static/BSNIPII/ben_vel.txt' target="_blank">TXT</a>
+			<li>Table A1: Summary of Spectral Dataset <a href='static/BSNIPII/data_summary.txt' target="_blank">TXT</a>
+			<li>Table B1: Measured Values for Ca II H&amp;K <a href='static/BSNIPII/cahk.txt' target="_blank">TXT</a>
+			<li>Table B2: Measured Values for Si II &lambda;4000 <a href='static/BSNIPII/si4000.txt' target="_blank">TXT</a>
+			<li>Table B3: Measured Values for Mg II <a href='static/BSNIPII/mg.txt' target="_blank">TXT</a>
+			<li>Table B4: Measured Values for Fe II <a href='static/BSNIPII/fe.txt' target="_blank">TXT</a>
+			<li>Table B5: Measured Values for S II "W" <a href='static/BSNIPII/sii.txt' target="_blank">TXT</a>
+			<li>Table B6: Measured Values for Si II &lambda;5972 <a href='static/BSNIPII/si5972.txt' target="_blank">TXT</a>
+			<li>Table B7: Measured Values for Si II &lambda;6355 <a href='static/BSNIPII/si6355.txt' target="_blank">TXT</a>
+			<li>Table B8: Measured Values for O I Triplet <a href='static/BSNIPII/oi.txt' target="_blank">TXT</a>
+			<li>Table B9: Measured Values for Ca II Near-IR Triplet <a href='static/BSNIPII/cair.txt' target="_blank">TXT</a>
+			</ul></p>
+		</div><!-- /col -->
+      </div><!-- /row -->
+	 </div><!-- /col - contains all page content -->
+	 <div class="col-md-2">
+          <p>&nbsp;</p>
+	  <div id="toc"></div>
+	 </div><!--/table of contents -->
+    </div><!-- /row -->
+
+      <footer>
+        <hr>
+		<p>
+		Authored by Jeffrey M. Silverman, Michael P. Hyland, and Isaac Shivvers ::: Advised by A. V. Filippenko :::
+         <script type="text/javascript">
+			document.write ( new Date().getFullYear() );
+		</script>
+		</p>
+      </footer>
+    </div> <!-- /container -->
+    </form>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/mine.js"></script>
+	<script src="static/js/jquery-ui.min.js"></script>
+	<script src="static/js/jquery.tocify.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+	 //Builds the table of contents when the DOM is ready.
+     $(function() {
+         //Calls the tocify method on your HTML div.
+         $("#toc").tocify();
+     });
+	</script>
+  </body>
+</html>
